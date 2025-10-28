@@ -57,3 +57,19 @@ app.put('/komik',async(req,res)=>{
         res.status(500).send(err);
     }
 });
+
+app.delete('/komik', async(req,res)=>{
+    const id=req.params.id;
+    try{
+        const komik =await db.Komik.findByPk(id);
+        if(!komik){
+            return res.status(404).send ({message:'komik tidak ditemukan'})
+            
+        }
+        await komik.delete(data);
+        res.send({message:'komik berhasil di hapus'});
+    }catch(err){
+        res.status(500).send(err);
+    }
+
+})
